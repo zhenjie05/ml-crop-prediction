@@ -31,22 +31,28 @@ We tested and compared the following models:
 You can open our main notebook on Google Colab:
 [📔 main_project.ipynb](https://colab.research.google.com/drive/1syJ23EiOkey0Q5Slqbe0izVg8hKVXV-R?usp=sharing)
 
+## 📂 Project Notebook
+
+You can access the project notebook here:  
+[Open Project Notebook on Colab](https://colab.research.google.com/drive/1syJ23EiOkey0Q5Slqbe0izVg8hKVXV-R?usp=sharing)
+
+
 ## 🎥 Demo Video
 [📽️ Watch our 5-minute video here](https://youtu.be/your-demo-link)
 
 ## 📂 Project Structure
 ml-crop-prediction/
-├── data/               # Contains raw and processed datasets (e.g., crop production data)
+├── data/               
 │   └── crop_production.csv
 │   └── crop_features.csv
-├── notebooks/          # Jupyter or Colab notebooks for project analysis
-│   └── main_project.ipynb  # Main notebook containing data preprocessing, model training, and evaluation
-├── slides/             # Contains presentation slides for project demo
-│   └── presentation.pdf  # Final presentation slides for submission
-├── video/              # Optional, or just link to YouTube video in README
-│   └── project_demo.mp4  # Video presentation link (uploaded to YouTube)
-├── LICENSE             # License file (MIT License in this case)
-├── README.md           # Project documentation and overview
+├── notebooks/          
+│   └── main_project.ipynb  
+├── slides/            
+│   └── presentation.pdf 
+├── video/             
+│   └── project_demo.mp4  
+├── LICENSE         
+├── README.md          
 
 ## 📄 License
 This project is licensed under the [MIT License](LICENSE).
