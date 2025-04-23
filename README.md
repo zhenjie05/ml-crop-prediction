@@ -36,3 +36,5 @@ You can open our main notebook on Google Colab:
 
 ## 📂 Project Structure
 
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
