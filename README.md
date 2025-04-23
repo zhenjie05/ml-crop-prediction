@@ -27,15 +27,10 @@ We tested and compared the following models:
 - MAE (Mean Absolute Error)
 - R² Score
 
-## 🧪 How to Run
+## 🧪 Project Norebook
+
 You can open our main notebook on Google Colab:
 [📔 main_project.ipynb](https://colab.research.google.com/drive/1syJ23EiOkey0Q5Slqbe0izVg8hKVXV-R?usp=sharing)
-
-## 📂 Project Notebook
-
-You can access the project notebook here:  
-[Open Project Notebook on Colab](https://colab.research.google.com/drive/1syJ23EiOkey0Q5Slqbe0izVg8hKVXV-R?usp=sharing)
-
 
 ## 🎥 Demo Video
 [📽️ Watch our 5-minute video here](https://youtu.be/your-demo-link)
