@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 
 # Load model
-model = joblib.load('final_xgb_model.pkl')
+model = joblib.load('final_model.pkl')
 
 st.title("Crop Production Predictor")
 
