@@ -9,6 +9,9 @@ model = joblib.load("final_model.pkl")
 encoder = joblib.load("target_encoder.pkl")
 feature_columns = joblib.load("feature_columns.pkl")
 
+st.subheader("📌 Loaded Feature Columns")
+st.write(feature_columns)
+
 # --- Load Preprocessed Data for Dynamic Options ---
 @st.cache_data
 def load_preprocessed_data():
