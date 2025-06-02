@@ -4,7 +4,7 @@ import numpy as np
 import joblib
 from category_encoders import TargetEncoder
 
-# --- Load Model & Encoder ---
+# --- Load Model & Encoders ---
 model = joblib.load("final_model.pkl")
 encoder = joblib.load("target_encoder.pkl")
 feature_columns = joblib.load("feature_columns.pkl")
@@ -60,10 +60,18 @@ month_num = season_list.index(month) + 1
 input_encoded["month_sin"] = np.sin(2 * np.pi * month_num / 12)
 input_encoded["month_cos"] = np.cos(2 * np.pi * month_num / 12)
 
-# Reorder and align input
-input_encoded = input_encoded.reindex(columns=feature_columns, fill_value=0)
+# Add any missing features required by the model
+for col in feature_columns:
+    if col not in input_encoded.columns:
+        input_encoded[col] = 0  # Use 0 or a sensible default (like a median/mean)
+
+# Ensure the input is in the same order as during training
+input_encoded = input_encoded[feature_columns]
 
 # --- Prediction ---
 if st.button("🔍 Predict Production"):
-    prediction = model.predict(input_encoded)[0]
-    st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
+    try:
+        prediction = model.predict(input_encoded)[0]
+        st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
+    except Exception as e:
+        st.error(f"Prediction failed due to input mismatch or model error: {e}")
