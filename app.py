@@ -28,8 +28,7 @@ season = st.selectbox("Select Month", season_list)
 # Prepare input as DataFrame
 input_data = pd.DataFrame({
     'crop_species': [crop_species],
-    'district': [district],
-    'crop_type': [crop_type]
+    'district': [district]
 })
 
 # Encode categorical variables
