@@ -90,6 +90,9 @@ for col in feature_columns:
     if col not in input_df.columns:
         input_df[col] = 0  # Fill missing features with zero
 
+st.write("🔍 Input Data Columns:", input_df.columns.tolist())
+st.write("🧩 Expected Feature Columns:", feature_columns)
+
 input_df = input_df[feature_columns]
 
 st.write("📄 Model Input Preview", input_df)
