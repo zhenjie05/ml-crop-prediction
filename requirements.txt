@@ -1,5 +1,7 @@
 streamlit
 xgboost
-scikit-learn
 pandas
 numpy
+scikit-learn
+category_encoders
+joblib
