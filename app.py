@@ -11,7 +11,7 @@ encoder = joblib.load("target_encoder.pkl")
 # --- Load Preprocessed Data for Dynamic Options ---
 @st.cache_data
 def load_preprocessed_data():
-    file_path = "crop_weather_preprocessed.csv"  # Update if using Google Drive
+    file_path = "/content/drive/MyDrive/CropPrediction/crop_weather_preprocessed.csv"  
     df = pd.read_csv(file_path)
     return df
 
