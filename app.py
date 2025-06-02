@@ -7,6 +7,7 @@ from category_encoders import TargetEncoder
 # --- Load Model & Encoder ---
 model = joblib.load("final_model.pkl")
 encoder = joblib.load("target_encoder.pkl")
+feature_columns = joblib.load("feature_columns.pkl")
 
 # --- Load Preprocessed Data for Dynamic Options ---
 @st.cache_data
@@ -58,6 +59,9 @@ input_encoded = encoder.transform(input_data)
 month_num = season_list.index(month) + 1
 input_encoded["month_sin"] = np.sin(2 * np.pi * month_num / 12)
 input_encoded["month_cos"] = np.cos(2 * np.pi * month_num / 12)
+
+# Reorder and align input
+input_encoded = input_encoded.reindex(columns=feature_columns, fill_value=0)
 
 # --- Prediction ---
 if st.button("🔍 Predict Production"):
