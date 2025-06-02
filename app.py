@@ -92,8 +92,7 @@ for col in feature_columns:
 
 input_df = input_df[feature_columns]
 
-st.write("📄 Final Input DataFrame:", input_df)
-st.write("📏 Feature Columns Used:", feature_columns)
+st.write("📄 Model Input Preview", input_df)
 
 # --- Prediction ---
 if st.button("🔍 Predict Production"):
