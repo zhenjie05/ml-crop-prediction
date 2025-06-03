@@ -4,6 +4,9 @@ import numpy as np
 import joblib
 from category_encoders import TargetEncoder
 
+# --- App UI ---
+st.set_page_config(page_title="🌾 Smart Crop Production Predictor", layout="wide")
+
 # --- Load Model & Encoders ---
 model = joblib.load("app/final_model.pkl")
 encoder = joblib.load("app/target_encoder.pkl")
@@ -26,8 +29,7 @@ season_list = [
     "July", "August", "September", "October", "November", "December"
 ]
 
-# --- App UI ---
-st.set_page_config(page_title="🌾 Smart Crop Production Predictor", layout="wide")
+
 
 # Title and polished description
 st.title("🌾 Smart Crop Production Predictor")
