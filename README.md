@@ -1,31 +1,68 @@
-# 🌾 ML Crop Prediction
+# 🌾 ML Crop Production Prediction (Malaysia)
 
 ## 🧑‍🤝‍🧑 Group Members
-- Lee Zhen Jie (24059735)
-- Saw Tian Li (24061227)
-- Evelyn Khiu Sin Yaw (24004572)
-- Lai Joey (24004551)
-- Chen Shao Yee (24004570)
+- **Lee Zhen Jie** (24059735)
+- **Saw Tian Li** (24061227)
+- **Evelyn Khiu Sin Yaw** (24004572)
+- **Lai Joey** (24004551)
+- **Chen Shao Yee** (24004570)
+
+---
 
 ## 📌 Project Overview
-This machine learning project predicts crop production by district in Malaysia. The aim is to explore how different ML models perform in forecasting agricultural output using real-world datasets.
+This machine learning project aims to predict **crop production** by **district in Malaysia** using various features like weather, soil, crop type, and month. We build, compare, and evaluate multiple regression models and deploy the best-performing model using **Streamlit** for interactive predictions.
+
+---
 
 ## 📊 Dataset
-- **Primary Dataset**: [Crop Production by District (data.gov.my)](https://data.gov.my/data-catalogue/crops_district_production?)
-- Additional datasets: (if any, list here)
 
-## 🧠 Models Used
-We tested and compared the following models:
-- Linear Regression
-- Random Forest
-- K-Nearest Neighbors
-- XGBoost
-- Support Vector Regression
+| Source | Description |
+|--------|-------------|
+| [Crop Production by District](https://data.gov.my/data-catalogue/crops_district_production?) | Primary production dataset (2015–2021) |
+| Weather Data | Historical weather data (temperature, humidity, precipitation, radiation) |
+| Soil Data | District-wise soil types and irrigation information |
+| Additional | Derived temporal features (e.g., `month_sin`, `month_cos`) and interactions |
 
-## ⚙️ Evaluation Metrics
-- RMSE (Root Mean Squared Error)
-- MAE (Mean Absolute Error)
-- R² Score
+---
+
+## 🔄 Workflow
+
+### ✅ Data Preprocessing
+- Imputation of missing values
+- Outlier handling using IQR
+- Log transformation for skewed features
+- Target encoding for categorical columns
+- RobustScaler normalization
+- Feature engineering: cyclical month encoding, temperature-humidity interaction
+
+### 🧠 Model Training
+- Models trained:
+  - Linear Regression
+  - Random Forest Regressor
+  - K-Nearest Neighbors
+  - Support Vector Regression (SVR)
+  - XGBoost Regressor
+
+- Evaluation Metrics:
+  - 📉 **RMSE (Root Mean Squared Error)**
+  - 📈 **R² Score**
+  - 📊 **MAE (Mean Absolute Error)**
+
+- Best model: **XGBoost**  
+  Saved model and feature columns are serialized using `joblib`.
+
+---
+
+## 💻 Streamlit App
+
+We built an interactive **Streamlit** web app that allows users to:
+
+- Input crop, district, weather, soil, and temporal data
+- Predict expected **crop production**
+- View prediction results in real-time
+
+📍 **Open the deployed app:**  
+[🌐 Streamlit Crop Predictor (Demo)](https://ml-crop-prediction-4dosgknvhwbxcg6jpbmswd.streamlit.app/#enter-crop-details)
 
 ## 🧪 Project Norebook
 
@@ -37,17 +74,27 @@ You can open our main notebook on Google Colab:
 
 ## 📂 Project Structure
 ml-crop-prediction/
-├── data/               
-│   └── crop_production.csv
-│   └── crop_features.csv
-├── notebooks/          
-│   └── main_project.ipynb  
-├── slides/            
-│   └── presentation.pdf 
-├── video/             
-│   └── project_demo.mp4  
-├── LICENSE         
-├── README.md          
+├── data/
+│   ├── crop_production.csv
+│   ├── crop_features.csv
+│   └── unique_districts.csv
+├── notebooks/
+│   └── main_project.ipynb
+├── app/
+│   ├── app.py                 # Streamlit application
+│   ├── final_model.pkl        # Trained XGBoost model
+│   ├── feature_columns.pkl    # Features used for model
+│   └── target_encoder.pkl     # Encoder used for categorical vars
+├── plots/
+│   └── scaled_distributions.png
+├── video/
+│   └── project_demo.mp4
+├── slides/
+│   └── presentation.pdf
+├── preprocessing_log.txt
+├── README.md
+└── LICENSE
+        
 
 ## 📄 License
 This project is licensed under the [MIT License](LICENSE).
