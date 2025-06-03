@@ -28,8 +28,17 @@ season_list = [
 
 # --- App UI ---
 st.set_page_config(page_title="🌾 Smart Crop Production Predictor", layout="wide")
+
+# Title and polished description
 st.title("🌾 Smart Crop Production Predictor")
-st.markdown("_Predict crop yields interactively based on your conditions._")
+
+st.markdown("""
+Welcome to the **Smart Crop Production Predictor**, an interactive tool powered by a machine learning model that estimates crop yields based on multiple environmental and regional inputs.
+
+This app helps farmers, researchers, and agronomists simulate crop production outcomes using real-world weather, soil, and crop data.
+
+Use the sidebar to configure your **crop type, species, and region**, then adjust environmental conditions and soil settings to explore how they affect production.
+""")
 
 # --- Sidebar for Global Selections ---
 with st.sidebar:
@@ -41,7 +50,7 @@ with st.sidebar:
     crop_species = st.selectbox("🧬 Crop Species", sorted(crop_type_species_map.get(crop_type, [])))
     st.markdown("---")
 
-# --- Main Content ---
+# --- Environmental Conditions ---
 st.subheader("🌡️ Environmental Conditions")
 with st.expander("Adjust Environmental Conditions", expanded=True):
     col1, col2 = st.columns(2)
@@ -54,6 +63,7 @@ with st.expander("Adjust Environmental Conditions", expanded=True):
         humidity = st.slider("💧 Humidity (%)", 10.0, 100.0, 60.0, 0.1)
         radiation = st.slider("☀️ Radiation (MJ/m²)", 5.0, 35.0, 15.0, 0.1)
 
+# --- Soil and Irrigation ---
 st.subheader("🌾 Soil & Irrigation Options")
 with st.expander("Soil & Irrigation Details", expanded=True):
     soil_types = sorted(df['soil_type'].dropna().unique())
@@ -64,7 +74,7 @@ with st.expander("Soil & Irrigation Details", expanded=True):
                                 help="Choose whether irrigation is applied.")
     irrigation = [key for key, value in irrigation_map.items() if value == irrigation_label][0]
 
-# --- Input Summary Card ---
+# --- Input Summary ---
 with st.expander("📊 Review Your Inputs"):
     st.markdown(f"**🗓️ Month:** {month}")
     st.markdown(f"**🗺️ State/District:** {state} / {district}")
@@ -126,4 +136,4 @@ if st.button("🔍 Predict Production"):
         st.error(f"❌ Prediction failed: {e}")
 
 st.divider()
-st.caption("📌 *Note: Predictions are based on a pre-trained model and may not reflect extreme or rare conditions.*")
+st.caption("📌 *Note: This tool provides estimated crop production values based on machine learning models trained on historical data. Always consult local agricultural experts for critical decisions.*")
