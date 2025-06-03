@@ -13,7 +13,7 @@ feature_columns = joblib.load("app/feature_columns.pkl")
 # --- Load Preprocessed Data ---
 @st.cache_data
 def load_preprocessed_data():
-    df = pd.read_csv("crop_weather_preprocessed.csv")
+    df = pd.read_csv("app/crop_weather_preprocessed.csv")
     return df
 
 df = load_preprocessed_data()
