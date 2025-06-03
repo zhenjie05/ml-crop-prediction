@@ -121,3 +121,6 @@ if st.button("🔍 Predict Production"):
 
     except Exception as e:
         st.error(f"❌ Prediction failed: {e}")
+
+st.divider()
+st.caption("📌 *Note: The prediction is based on a pre-trained model and may not fully capture all seasonal or regional variations.*")
