@@ -4,9 +4,10 @@ import numpy as np
 import joblib
 from category_encoders import TargetEncoder
 
-# --- Load Model & Encoder ---
+# --- Load Model & Encoders ---
 model = joblib.load("final_model.pkl")
 encoder = joblib.load("target_encoder.pkl")
+soil_type_encoder = joblib.load("soil_type_encoder.pkl")  # load soil type encoder
 feature_columns = joblib.load("feature_columns.pkl")
 
 # --- Load Preprocessed Data for Dynamic Options ---
@@ -59,8 +60,10 @@ with col4:
 st.divider()
 
 st.header("🌾 Soil and Irrigation")
-soil_types = sorted(df['soil_type_encoded'].dropna().unique())
-soil_type_encoded = st.selectbox("Soil Type (Encoded)", soil_types)
+
+# Show soil type names (not encoded) for user to select
+soil_types = sorted(df['soil_type'].dropna().unique())
+soil_type = st.selectbox("Soil Type", soil_types)
 
 irrigation_options = sorted(df['irrigation'].dropna().unique())
 irrigation = st.selectbox("Irrigation Method", irrigation_options)
@@ -68,12 +71,16 @@ irrigation = st.selectbox("Irrigation Method", irrigation_options)
 st.divider()
 
 # --- Prepare Model Input ---
+
+# Encode soil type now
+soil_type_encoded = soil_type_encoder.transform([soil_type])[0]
+
 input_dict = {
     "temperature": [temperature],
     "precipitation": [precipitation],
     "humidity": [humidity],
     "radiation": [radiation],
-    "soil_type_encoded": [soil_type_encoded],
+    "soil_type_encoded": [soil_type_encoded],  # encoded soil_type here
     "irrigation": [irrigation],
     "crop_species": [crop_species],
     "district": [district]
