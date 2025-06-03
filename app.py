@@ -93,11 +93,11 @@ with st.expander("Soil & Irrigation Details", expanded=True):
 # --- Input Summary ---
 with st.expander("📊 Review Your Inputs"):
     st.markdown(f"**🗓️ Month:** {month}")
-    st.markdown(f"**🗺️ State/District:** {state} / {district}")
-    st.markdown(f"**🌱 Crop Type/Species:** {crop_type} / {crop_species}")
-    st.markdown(f"**🌡️ Temp:** {temperature}°C  |  💧 Humidity: {humidity}%")
+    st.markdown(f"**🗺️ State/District:** {state} / {district.title()}")
+    st.markdown(f"**🌱 Crop Type/Species:** {crop_type.title()} / {crop_species.title()}")
+    st.markdown(f"**🌡️ Temperature:** {temperature}°C  |  💧 Humidity: {humidity}%")
     st.markdown(f"**🌧️ Precipitation:** {precipitation}mm  |  ☀️ Radiation: {radiation} MJ/m²")
-    st.markdown(f"**🪨 Soil Type:** {soil_type}  |  🚿 Irrigation: {irrigation_label}")
+    st.markdown(f"**🪨 Soil Type:** {soil_type.title()}  |  🚿 Irrigation: {irrigation_label}")
 
 st.divider()
 
