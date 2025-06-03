@@ -93,6 +93,8 @@ for col in feature_columns:
 st.subheader("🔍 Raw Input Data Before Reordering")
 st.write(input_df)
 
+st.write("📑 Saved Feature Columns", feature_columns)
+
 input_df = input_df[feature_columns]
 
 st.write("📄 Model Input Preview", input_df)
