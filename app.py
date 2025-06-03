@@ -58,7 +58,12 @@ with st.sidebar:
     crop_type_display = st.selectbox("🌱 Crop Type", list(crop_type_display_map.keys()))
     crop_type = crop_type_display_map[crop_type_display]  # use original key
 
-    crop_species = st.selectbox("🧬 Crop Species", sorted(crop_type_species_map.get(crop_type, [])))
+    # Title-case crop species for display, use original for logic
+    species_options = sorted(crop_type_species_map.get(crop_type, []))
+    species_display_map = {s.title(): s for s in species_options}
+    crop_species_display = st.selectbox("🧬 Crop Species", list(species_display_map.keys()))
+    crop_species = species_display_map[crop_species_display]
+
     st.markdown("---")
 
 # --- Environmental Conditions ---
