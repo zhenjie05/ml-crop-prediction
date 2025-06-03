@@ -52,7 +52,12 @@ with st.sidebar:
     district_display = st.selectbox("🏙️ District", list(district_display_map.keys()))
     district = district_display_map[district_display]  # use original for encoding
 
-    crop_type = st.selectbox("🌱 Crop Type", sorted(crop_type_species_map.keys()))
+    # Title-case crop types for display, use original for logic
+    crop_type_options = sorted(crop_type_species_map.keys())
+    crop_type_display_map = {c.title(): c for c in crop_type_options}
+    crop_type_display = st.selectbox("🌱 Crop Type", list(crop_type_display_map.keys()))
+    crop_type = crop_type_display_map[crop_type_display]  # use original key
+
     crop_species = st.selectbox("🧬 Crop Species", sorted(crop_type_species_map.get(crop_type, [])))
     st.markdown("---")
 
