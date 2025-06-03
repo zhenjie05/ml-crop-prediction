@@ -28,31 +28,41 @@ season_list = [
 ]
 
 # --- App UI ---
-st.set_page_config(page_title="Crop Prediction App", layout="centered")
-st.title("🌾 Crop Production Prediction")
-st.markdown("Predict crop production based on species, location, and season.")
+st.set_page_config(page_title="🌾 Crop Production Prediction", layout="centered")
+st.title("🌿 Crop Production Predictor")
+st.markdown("**Estimate potential crop production based on location, season, and environmental conditions.**")
+
+st.divider()
 
 # --- Input Widgets ---
-month = st.selectbox("Select Month", season_list)
-state = st.selectbox("Select State", sorted(state_district_map.keys()))
-district_options = sorted(state_district_map.get(state, []))
-district = st.selectbox("Select District", district_options)
-crop_type = st.selectbox("Select Crop Type", sorted(crop_type_species_map.keys()))
-species_options = sorted(crop_type_species_map.get(crop_type, []))
-crop_species = st.selectbox("Select Crop Species", species_options)
+st.header("📋 Input Parameters")
 
-# Numeric inputs for features used in model
-temperature = st.number_input("Temperature (°C)", value=25.0, step=0.1)
-precipitation = st.number_input("Precipitation (mm)", value=10.0, step=0.1)
-humidity = st.number_input("Humidity (%)", value=60.0, step=0.1)
-radiation = st.number_input("Radiation (MJ/m2)", value=15.0, step=0.1)
+col1, col2 = st.columns(2)
+with col1:
+    month = st.selectbox("🌙 Select Month", season_list)
+    state = st.selectbox("🗺️ Select State", sorted(state_district_map.keys()))
+    district_options = sorted(state_district_map.get(state, []))
+    district = st.selectbox("🏙️ Select District", district_options)
+with col2:
+    crop_type = st.selectbox("🌱 Select Crop Type", sorted(crop_type_species_map.keys()))
+    species_options = sorted(crop_type_species_map.get(crop_type, []))
+    crop_species = st.selectbox("🧬 Select Crop Species", species_options)
 
-# For encoded categorical features
+st.subheader("🌡️ Environmental Factors")
+col3, col4 = st.columns(2)
+with col3:
+    temperature = st.number_input("Temperature (°C)", value=25.0, step=0.1)
+    precipitation = st.number_input("Precipitation (mm)", value=10.0, step=0.1)
+with col4:
+    humidity = st.number_input("Humidity (%)", value=60.0, step=0.1)
+    radiation = st.number_input("Radiation (MJ/m2)", value=15.0, step=0.1)
+
+st.subheader("🌾 Soil & Irrigation")
 soil_types = sorted(df['soil_type_encoded'].dropna().unique())
 soil_type_encoded = st.selectbox("Soil Type (Encoded)", soil_types)
 
 irrigation_options = sorted(df['irrigation'].dropna().unique())
-irrigation = st.selectbox("Irrigation", irrigation_options)
+irrigation = st.selectbox("Irrigation Method", irrigation_options)
 
 # --- Prepare Model Input ---
 input_dict = {
@@ -89,29 +99,20 @@ for col in feature_columns:
     if col not in input_df.columns:
         input_df[col] = 0  # Fill missing features with zero
 
-st.subheader("🔍 Raw Input Data Before Reordering")
-st.write(input_df)
-
-st.write("📑 Saved Feature Columns", feature_columns)
-
-# Reorder columns to match saved feature_columns
+# Reorder columns to match model expectation
 input_df = input_df[feature_columns]
 
-st.write("📄 Model Input Preview", input_df)
-
 # --- Prediction ---
+st.divider()
+st.subheader("📊 Prediction Result")
+
 if st.button("🔍 Predict Production"):
     try:
-        # Rename columns to match model's expected format (0, 1, 2, ...)
-        input_df.columns = [str(i) for i in range(len(input_df.columns))]
-
-        # Keep only the number of features the model expects
-        expected_features = model.n_features_in_
-        input_df = input_df.iloc[:, :expected_features]
-
-        # Now safe to predict
         prediction = model.predict(input_df)[0]
-        st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
-
+        st.success(f"🌱 **Estimated Crop Production:** {prediction:.2f} units")
     except Exception as e:
         st.error(f"❌ Prediction failed: {e}")
+
+# --- Footer ---
+st.divider()
+st.caption("📌 *Note: The prediction is based on a pre-trained model and may not fully capture all seasonal or regional variations.*")
