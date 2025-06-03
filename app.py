@@ -123,8 +123,6 @@ for col in feature_columns:
         input_df[col] = 0
 input_df = input_df[feature_columns]
 
-st.write(input_df)
-
 # --- Prediction ---
 if st.button("🔍 Predict Production"):
     try:
@@ -132,6 +130,9 @@ if st.button("🔍 Predict Production"):
         expected_features = model.n_features_in_
         input_df = input_df.iloc[:, :expected_features]
         input_df = input_df.astype(float)
+
+        st.write(input_df)
+        
         prediction = model.predict(input_df)[0]
         st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
     except Exception as e:
