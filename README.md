@@ -62,7 +62,7 @@ We built an interactive **Streamlit** web app that allows users to:
 - View prediction results in real-time
 
 📍 **Open the deployed app:**  
-[🌐 Streamlit Crop Predictor (Demo)](https://ml-crop-prediction-4dosgknvhwbxcg6jpbmswd.streamlit.app/#enter-crop-details)
+[🌐 Streamlit Crop Predictor (Demo)](https://ml-crop-prediction-czz87xcxsjmzvuvmjxskfl.streamlit.app/)
 
 ## 🧪 Project Norebook
 
