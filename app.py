@@ -123,6 +123,8 @@ for col in feature_columns:
         input_df[col] = 0
 input_df = input_df[feature_columns]
 
+st.write(input_df)
+
 # --- Prediction ---
 if st.button("🔍 Predict Production"):
     try:
