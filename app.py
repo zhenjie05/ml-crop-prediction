@@ -105,6 +105,10 @@ if st.button("🔍 Predict Production"):
         # Rename columns to match model's expected format (0, 1, 2, ...)
         input_df.columns = [str(i) for i in range(len(input_df.columns))]
 
+        # Keep only the number of features the model expects
+        expected_features = model.n_features_in_
+        input_df = input_df.iloc[:, :expected_features]
+
         # Now safe to predict
         prediction = model.predict(input_df)[0]
         st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
