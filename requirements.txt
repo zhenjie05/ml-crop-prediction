@@ -1,7 +1,0 @@
-streamlit
-xgboost
-pandas
-numpy
-scikit-learn
-category_encoders
-joblib
