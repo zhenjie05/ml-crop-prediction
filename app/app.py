@@ -29,8 +29,6 @@ season_list = [
     "July", "August", "September", "October", "November", "December"
 ]
 
-
-
 # Title and polished description
 st.title("🌾 Smart Crop Production Predictor")
 
