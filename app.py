@@ -31,28 +31,41 @@ season_list = [
 st.set_page_config(page_title="Crop Prediction App", layout="centered")
 st.title("🌾 Crop Production Prediction")
 st.markdown("Predict crop production based on species, location, and season.")
+st.divider()
 
-# --- Input Widgets ---
-month = st.selectbox("Select Month", season_list)
-state = st.selectbox("Select State", sorted(state_district_map.keys()))
-district_options = sorted(state_district_map.get(state, []))
-district = st.selectbox("Select District", district_options)
-crop_type = st.selectbox("Select Crop Type", sorted(crop_type_species_map.keys()))
-species_options = sorted(crop_type_species_map.get(crop_type, []))
-crop_species = st.selectbox("Select Crop Species", species_options)
+st.header("📋 Select Crop and Location")
+col1, col2 = st.columns(2)
+with col1:
+    month = st.selectbox("🌙 Select Month", season_list)
+    state = st.selectbox("🗺️ Select State", sorted(state_district_map.keys()))
+    district_options = sorted(state_district_map.get(state, []))
+    district = st.selectbox("🏙️ Select District", district_options)
+with col2:
+    crop_type = st.selectbox("🌱 Select Crop Type", sorted(crop_type_species_map.keys()))
+    species_options = sorted(crop_type_species_map.get(crop_type, []))
+    crop_species = st.selectbox("🧬 Select Crop Species", species_options)
 
-# Numeric inputs for features used in model
-temperature = st.number_input("Temperature (°C)", value=25.0, step=0.1)
-precipitation = st.number_input("Precipitation (mm)", value=10.0, step=0.1)
-humidity = st.number_input("Humidity (%)", value=60.0, step=0.1)
-radiation = st.number_input("Radiation (MJ/m2)", value=15.0, step=0.1)
+st.divider()
 
-# For encoded categorical features
+st.header("🌡️ Environmental Conditions")
+col3, col4 = st.columns(2)
+with col3:
+    temperature = st.number_input("Temperature (°C)", value=25.0, step=0.1)
+    precipitation = st.number_input("Precipitation (mm)", value=10.0, step=0.1)
+with col4:
+    humidity = st.number_input("Humidity (%)", value=60.0, step=0.1)
+    radiation = st.number_input("Radiation (MJ/m2)", value=15.0, step=0.1)
+
+st.divider()
+
+st.header("🌾 Soil and Irrigation")
 soil_types = sorted(df['soil_type_encoded'].dropna().unique())
 soil_type_encoded = st.selectbox("Soil Type (Encoded)", soil_types)
 
 irrigation_options = sorted(df['irrigation'].dropna().unique())
-irrigation = st.selectbox("Irrigation", irrigation_options)
+irrigation = st.selectbox("Irrigation Method", irrigation_options)
+
+st.divider()
 
 # --- Prepare Model Input ---
 input_dict = {
@@ -89,15 +102,8 @@ for col in feature_columns:
     if col not in input_df.columns:
         input_df[col] = 0  # Fill missing features with zero
 
-st.subheader("🔍 Raw Input Data Before Reordering")
-st.write(input_df)
-
-st.write("📑 Saved Feature Columns", feature_columns)
-
 # Reorder columns to match saved feature_columns
 input_df = input_df[feature_columns]
-
-st.write("📄 Model Input Preview", input_df)
 
 # --- Prediction ---
 if st.button("🔍 Predict Production"):
