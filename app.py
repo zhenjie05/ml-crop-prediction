@@ -47,7 +47,7 @@ precipitation = st.number_input("Precipitation (mm)", value=10.0, step=0.1)
 humidity = st.number_input("Humidity (%)", value=60.0, step=0.1)
 radiation = st.number_input("Radiation (MJ/m2)", value=15.0, step=0.1)
 
-# For encoded categorical features, provide selectboxes with values from data or reasonable defaults
+# For encoded categorical features
 soil_types = sorted(df['soil_type_encoded'].dropna().unique())
 soil_type_encoded = st.selectbox("Soil Type (Encoded)", soil_types)
 
@@ -55,7 +55,6 @@ irrigation_options = sorted(df['irrigation'].dropna().unique())
 irrigation = st.selectbox("Irrigation", irrigation_options)
 
 # --- Prepare Model Input ---
-
 input_dict = {
     "temperature": [temperature],
     "precipitation": [precipitation],
@@ -69,7 +68,7 @@ input_dict = {
 
 input_df = pd.DataFrame(input_dict)
 
-# Encode categorical columns using your saved encoder
+# Encode categorical columns using saved encoder
 encoded_cat = encoder.transform(input_df[['crop_species', 'district']])
 input_df['crop_species_encoded'] = encoded_cat['crop_species']
 input_df['district_encoded'] = encoded_cat['district']
@@ -95,6 +94,7 @@ st.write(input_df)
 
 st.write("📑 Saved Feature Columns", feature_columns)
 
+# Reorder columns to match saved feature_columns
 input_df = input_df[feature_columns]
 
 st.write("📄 Model Input Preview", input_df)
@@ -102,7 +102,12 @@ st.write("📄 Model Input Preview", input_df)
 # --- Prediction ---
 if st.button("🔍 Predict Production"):
     try:
+        # Rename columns to match model's expected format (0, 1, 2, ...)
+        input_df.columns = [str(i) for i in range(len(input_df.columns))]
+
+        # Now safe to predict
         prediction = model.predict(input_df)[0]
         st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
+
     except Exception as e:
         st.error(f"❌ Prediction failed: {e}")
