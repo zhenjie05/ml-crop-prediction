@@ -5,10 +5,10 @@ import joblib
 from category_encoders import TargetEncoder
 
 # --- Load Model & Encoders ---
-model = joblib.load("final_model.pkl")
-encoder = joblib.load("target_encoder.pkl")
-soil_type_encoder = joblib.load("soil_type_encoder.pkl")
-feature_columns = joblib.load("feature_columns.pkl")
+model = joblib.load("app/final_model.pkl")
+encoder = joblib.load("app/target_encoder.pkl")
+soil_type_encoder = joblib.load("app/soil_type_encoder.pkl")
+feature_columns = joblib.load("app/feature_columns.pkl")
 
 # --- Load Preprocessed Data ---
 @st.cache_data
