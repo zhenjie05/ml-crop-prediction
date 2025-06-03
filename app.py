@@ -46,11 +46,11 @@ with st.sidebar:
     month = st.selectbox("🌙 Month", season_list)
     state = st.selectbox("🗺️ State", sorted(state_district_map.keys()))
     
-    # Capitalize district names for display, but store original mapping
+    # Title-case district names for display, use original for model
     district_options = sorted(state_district_map.get(state, []))
-    district_display_map = {d.upper(): d for d in district_options}
+    district_display_map = {d.title(): d for d in district_options}
     district_display = st.selectbox("🏙️ District", list(district_display_map.keys()))
-    district = district_display_map[district_display]  # Get original (non-capitalized) value
+    district = district_display_map[district_display]  # use original for encoding
 
     crop_type = st.selectbox("🌱 Crop Type", sorted(crop_type_species_map.keys()))
     crop_species = st.selectbox("🧬 Crop Species", sorted(crop_type_species_map.get(crop_type, [])))
