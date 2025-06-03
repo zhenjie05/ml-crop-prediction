@@ -102,6 +102,9 @@ for col in feature_columns:
 # Reorder columns to match model expectation
 input_df = input_df[feature_columns]
 
+# --- CRUCIAL FIX: rename columns to string numbers as model expects ---
+input_df.columns = [str(i) for i in range(input_df.shape[1])]
+
 # --- Prediction ---
 st.divider()
 st.subheader("📊 Prediction Result")
