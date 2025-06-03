@@ -7,7 +7,7 @@ from category_encoders import TargetEncoder
 # --- Load Model & Encoder ---
 model = joblib.load("final_model.pkl")
 encoder = joblib.load("target_encoder.pkl")
-feature_columns = joblib.load("feature_columns.pkl")
+feature_columns = joblib.load("feature_columns.pkl")  # Expecting 11 features, e.g. ['temperature', ..., 'temp_humidity_interaction']
 
 # --- Load Preprocessed Data for Dynamic Options ---
 @st.cache_data
@@ -94,16 +94,21 @@ input_df["temp_humidity_interaction"] = input_df["temperature"] * input_df["humi
 # Drop original categorical columns after encoding
 input_df = input_df.drop(columns=['crop_species', 'district'])
 
-# Ensure all expected columns are present and in correct order
+# --- Ensure all expected columns are present and in correct order ---
 for col in feature_columns:
     if col not in input_df.columns:
         input_df[col] = 0  # Fill missing features with zero
 
-# Reorder columns to match model expectation
 input_df = input_df[feature_columns]
 
-# --- CRUCIAL FIX: rename columns to string numbers as model expects ---
+# --- Rename columns to string numbers as the model expects ---
 input_df.columns = [str(i) for i in range(input_df.shape[1])]
+
+# --- DEBUG: Show final input info ---
+st.write("### Final Input Columns:", input_df.columns.tolist())
+st.write("### Final Input Shape:", input_df.shape)
+st.write("### Input Data Preview:")
+st.dataframe(input_df)
 
 # --- Prediction ---
 st.divider()
@@ -116,6 +121,5 @@ if st.button("🔍 Predict Production"):
     except Exception as e:
         st.error(f"❌ Prediction failed: {e}")
 
-# --- Footer ---
 st.divider()
 st.caption("📌 *Note: The prediction is based on a pre-trained model and may not fully capture all seasonal or regional variations.*")
