@@ -132,6 +132,9 @@ if st.button("🔍 Predict Production"):
         input_df = input_df.astype(float)
 
         st.write(input_df)
+
+        # 👉 Add this line here to check feature importances
+        st.write("Feature importances:", model.feature_importances_)
         
         prediction = model.predict(input_df)[0]
         st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
