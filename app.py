@@ -129,18 +129,7 @@ if st.button("🔍 Predict Production"):
         input_df.columns = [str(i) for i in range(len(input_df.columns))]
         expected_features = model.n_features_in_
         input_df = input_df.iloc[:, :expected_features]
-        input_df = input_df.astype(float)
-
-        # 👉 Add this line here to check feature importances
-        st.write("🔍 Model input dataframe:")
-        st.write(input_df)
-
-        st.write("📊 Feature Importances:")
-        importances = model.feature_importances_
-        for idx, (col, imp) in enumerate(zip(input_df.columns, importances)):
-            st.write(f"{col}: {imp:.4f}")
-
-        
+        input_df = input_df.astype(float)        
         prediction = model.predict(input_df)[0]
         st.success(f"🌱 Estimated Crop Production: **{prediction:.2f} units**")
     except Exception as e:
